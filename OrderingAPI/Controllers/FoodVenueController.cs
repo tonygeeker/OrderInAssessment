@@ -71,6 +71,7 @@ namespace OrderingAPI.Controllers
                             foodSearchResults.Add(new FoodSearchResult
                             {
                                 RestuarantName = venue.Name,
+                                LogoPath = venue.LogoPath,
                                 Suburb = venue.Suburb,
                                 Rank = venue.Rank,
                                 MenuItemsCount = menuItems.Count,
@@ -85,6 +86,7 @@ namespace OrderingAPI.Controllers
                             foodSearchResults.Add(new FoodSearchResult
                             {
                                 RestuarantName = venue.Name,
+                                LogoPath = venue.LogoPath,
                                 Suburb = venue.Suburb,
                                 Rank = venue.Rank,
                                 MenuItemsCount = category.MenuItems.Count(),

@@ -1,12 +1,10 @@
-﻿ using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using OrderingAPI.Models;
-using System.IO;
 using Newtonsoft.Json;
+using OrderingAPI.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace OrderingAPI.Controllers
 {
@@ -95,25 +93,9 @@ namespace OrderingAPI.Controllers
                             });
                         }
                     }
-                    
-
                 }
             }
             return foodSearchResults;
-        }
-
-        
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

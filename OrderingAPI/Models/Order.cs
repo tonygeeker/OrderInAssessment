@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrderingWebApp.Models
+namespace OrderingAPI.Models
 {
-    public class OrderItem
+    public class Order
     {
         public int RestaurantId { get; set; }
-        public string RestuarantName { get; set; }
+        public string RestaurantName { get; set; }
         public string Suburb { get; set; }
         public int Rank { get; set; }
-        public MenuItemViewModel MenuItem { get; set; }
+        public MenuItem MenuItem { get; set; }
+        public OrderStatus StatusOfOrder { get; set; }
     }
 
     public class OrderResponse
@@ -22,3 +23,4 @@ namespace OrderingWebApp.Models
         public bool IsSuccess { get; set; }
     }
 }
+

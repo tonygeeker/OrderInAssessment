@@ -8,7 +8,7 @@
 
 @if (Model.Any())
 {
-    @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
+    @using (Html.BeginForm("PlaceOrder", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
     {
         @Html.AntiForgeryToken()
 

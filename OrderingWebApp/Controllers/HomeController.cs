@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,8 @@ namespace OrderingWebApp.Controllers
             return View(new SearchViewModel());
         }
 
-       public async Task<IActionResult> Search(SearchViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Search(SearchViewModel model)
         {
             string baseURL = _config.GetValue<string>("MySettings:baseURL");
             var requestUri = $"{baseURL}api/foodSearch?foodSearch={model.FoodItem}&location={model.Location}";
@@ -42,6 +44,29 @@ namespace OrderingWebApp.Controllers
                 var matchingShops = JsonConvert.DeserializeObject<List<RestuarantViewModel>>(data);
                 return View(matchingShops);
             }
+        }
+
+        public async Task<IActionResult> PlaceOrder(OrderItem order)
+        {
+            string baseURL = _config.GetValue<string>("MySettings:baseURL");
+            var requestUri = $"{baseURL}api/foodSearch";
+            var orderResponse = new OrderResponse
+            {
+                FoodItem = order.MenuItem.Name,
+                RestaurantName = order.RestuarantName,
+                ShopLocation = order.Suburb
+            };
+
+            using (var client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync(requestUri, content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    orderResponse.IsSuccess = JsonConvert.DeserializeObject<OrderResponse>(apiResponse).IsSuccess;
+                }
+            }
+            return View(orderResponse);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

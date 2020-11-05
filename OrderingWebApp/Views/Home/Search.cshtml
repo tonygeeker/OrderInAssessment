@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OrderingWebApp.Models.RestuarantViewModel>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search by food item and location</h2>
+
+@if (Model.Any())
+{
+    @using (Html.BeginForm("PlaceOrder", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+        @foreach (var item in Model)
+        {
+            <div>
+                <img src="@Html.DisplayFor(modelItem => item.LogoPath)" />
+                <div>
+                    @Html.DisplayFor(modelItem => item.RestuarantName)
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Suburb)
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Rank)
+                </div>
+
+                @foreach (var menuItem in item.MenuItems)
+                {
+                    <div>@Html.HiddenFor(modelItem => menuItem.Id)</div>
+                    <div>
+                        @Html.DisplayFor(modelItem => menuItem.IsCheckedForOrder)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => menuItem.Name)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => menuItem.Price)
+                    </div>
+
+                }
+
+                
+            </div>
+        }
+
+    }
+}
+else
+{
+    <p> There are no restuarants with specified food items in the specified location </p>
+}
+
